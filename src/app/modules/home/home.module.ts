@@ -19,11 +19,26 @@ import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatDialogModule } from '@angular/material/dialog';
+import { EstablecimientoDialogComponent } from './dialogs/establecimiento-dialog/establecimiento-dialog.component';
+import { FamiliaComponent } from './components/familia/familia.component';
+import { FamiliaDialogComponent } from './dialogs/familia-dialog/familia-dialog.component';
+import { HistoriaFamiliarComponent } from './components/historia-familiar/historia-familiar.component';
+import { HistoriaFamiliarDialogComponent } from './dialogs/historia-familiar-dialog/historia-familiar-dialog.component';
+import { EstructuraFamiliarComponent } from './components/estructura-familiar/estructura-familiar.component';
+import { EstructuraFamiliarDialogComponent } from './dialogs/estructura-familiar-dialog/estructura-familiar-dialog.component';
 @NgModule({
   declarations: [
   
     HomePageComponent,
-    EstablecimientoComponent
+    EstablecimientoComponent,
+    EstablecimientoDialogComponent,
+    FamiliaComponent,
+    FamiliaDialogComponent,
+    HistoriaFamiliarComponent,
+    HistoriaFamiliarDialogComponent,
+    EstructuraFamiliarComponent,
+    EstructuraFamiliarDialogComponent
   ],
   imports: [
     CommonModule,
@@ -40,7 +55,8 @@ import { MatRadioModule } from '@angular/material/radio';
     MatTableModule,
     SharedModule,
     ReactiveFormsModule,
-    MatRadioModule
+    MatRadioModule,
+    MatDialogModule
   ]
 })
 export class HomeModule { }

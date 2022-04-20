@@ -30,7 +30,7 @@
         </div>
         <mat-divider></mat-divider>
         <div *ngFor="let item of mainMenu.defaultOptions">
-          <div class="sidebar-list" routerLink="/establecimientos">
+          <div class="sidebar-list" [routerLink]="item.router">
             <mat-icon>{{item.icon}}</mat-icon>
             <mat-list-item >{{item.name}}</mat-list-item>
           </div>

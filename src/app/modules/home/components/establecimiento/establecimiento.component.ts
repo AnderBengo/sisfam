@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatTable } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Establecimiento } from 'src/app/core/models/establecimiento';
+import { EstablecimientoDialogComponent } from '../../dialogs/establecimiento-dialog/establecimiento-dialog.component';
 
 @Component({
   selector: 'app-establecimiento',
@@ -9,48 +11,79 @@ import { Establecimiento } from 'src/app/core/models/establecimiento';
   styleUrls: ['./establecimiento.component.css']
 })
 export class EstablecimientoComponent implements OnInit {
-  formEstablecimiento: FormGroup = new FormGroup({});
+  establecimiento!: Establecimiento | undefined;
   establecimientos: Establecimiento[] = [
     //OBTENER LOS ESTABLECIMIENTOS DEL BACKEND por el SERVICE 
-    {nombre: 'Tupac Amaru',descripcion:'La nueva',abreviatura:'TA', estado: 'activo'},
-    {nombre: 'Tupac Rumer',descripcion:'La nueva',abreviatura:'TA', estado: 'activo'},
-    {nombre: 'Maria Auxiladora',descripcion:'La nueva',abreviatura:'TA', estado: 'activo'},
-    {nombre: 'Respecto local',descripcion:'La nueva',abreviatura:'TA', estado: 'activo'}
+    {id: 1,nombre: 'Tupac Amaru',descripcion:'La nueva',abreviatura:'TA', estado: 'activo'},
+    {id: 2,nombre: 'Tupac Rumer',descripcion:'La nueva',abreviatura:'TA', estado: 'activo'},
+    {id: 3,nombre: 'Maria Auxiladora',descripcion:'La nueva',abreviatura:'TA', estado: 'activo'},
+    {id: 4,nombre: 'Respecto local',descripcion:'La nueva',abreviatura:'TA', estado: 'activo'}
   ]
 
   displayedColumns: string[] = ['Nombre','Estado' ,'Acciones'];
-  dataSource = this.establecimientos;
+
+  dataSource: MatTableDataSource<Establecimiento> = new MatTableDataSource(this.establecimientos);
+
   @ViewChild(MatTable) table!: MatTable<any>;
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { 
+    let nombreEstablecimientos: string[] = [];
+    this.establecimientos.forEach(e => nombreEstablecimientos.push(e.nombre));
+
+    
+  }
+
+  // @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  ngAfterViewInit() {
+    // this.dataSource.paginator = this.paginator;
+  }
 
   ngOnInit(): void {
 
-    this.formEstablecimiento = new FormGroup({
-      nombre: new FormControl('', [
-        Validators.required
-      ]),
-      descripcion: new FormControl('',[
-        Validators.required
-      ]),
-      abreviatura: new FormControl('',[
-        Validators.required
-      ]),
-      estado: new FormControl('',[
-        Validators.required
-      ])
+  }
+
+  filtrarEstablecimiento(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    // if (this.dataSource.paginator) {
+    //   this.dataSource.paginator.firstPage();
+    // }
+  }
+
+  openDialogActualizar(establecimiento: Establecimiento): void {
+    const dialogRef = this.dialog.open(EstablecimientoDialogComponent, {
+      data: {establecimiento: establecimiento}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      establecimiento = result;
+      this.table.renderRows();
     });
   }
 
-  registrar() {
-    const { nombre, descripcion,abreviatura,estado } = this.formEstablecimiento.value;
-    let establecimiento: Establecimiento = { nombre, descripcion,abreviatura,estado };
+  openDialogCrear(): void {
+    const dialogRef = this.dialog.open(EstablecimientoDialogComponent, {
+      data: {establecimiento: this.establecimiento}
+    });
 
-    //ENVIAR EL ESTABLECIMIENTO AL BACKEND por el SERVICE 
+    dialogRef.afterClosed().subscribe(result => {
+      this.establecimiento = result;
+      if(this.establecimiento){
+        this.establecimientos.push(this.establecimiento);
+        this.table.renderRows();
+        this.establecimiento = undefined;
+      }
 
-
-    this.establecimientos.push(establecimiento);
-    this.table.renderRows();
+    });
   }
+
+  eliminarEstablecimiento(establecimiento: Establecimiento): void {
+    this.establecimientos = this.establecimientos.filter(e => e.id !== establecimiento.id);
+    this.dataSource = new MatTableDataSource(this.establecimientos);
+  }
+
+
 
 }

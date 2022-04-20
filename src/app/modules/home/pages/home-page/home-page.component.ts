@@ -24,7 +24,7 @@ export class HomePageComponent implements OnInit {
       {
         name: 'Establecimiento',
         icon: 'location_city',
-        router: ['establecimientos']
+        router: ['/','establecimientos']
       },
       {
         name: 'Ubigeo',
@@ -39,17 +39,17 @@ export class HomePageComponent implements OnInit {
       {
         name: 'Familia',
         icon: 'wc',
-        router: ['/', 'favorites']
+        router: ['/','familias']
       },
       {
         name: 'Historia familiar',
         icon: 'folder',
-        router: ['/', 'favorites']
+        router: ['/', 'historia-familiar']
       },
       {
         name: 'Estructura familiar',
         icon: 'person_add',
-        router: ['/', 'favorites']
+        router: ['/', 'estructura-familiar']
       },
       {
         name: 'Riesgo familiar EV',

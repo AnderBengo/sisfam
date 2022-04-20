@@ -15,7 +15,10 @@ import {MatListModule} from '@angular/material/list';
 import {MatCardModule} from '@angular/material/card';
 import {MatTableModule} from '@angular/material/table';
 import {MatRadioModule} from '@angular/material/radio';
-
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSelectModule} from '@angular/material/select';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,11 @@ import {MatRadioModule} from '@angular/material/radio';
     MatDividerModule,
     MatListModule,
     MatTableModule,
-    MatRadioModule
+    MatRadioModule,
+    MatDialogModule,
+    MatPaginatorModule,
+    MatSelectModule,
+    MatCheckboxModule
   ],
   exports: [
     MatButtonModule,
@@ -45,7 +52,11 @@ import {MatRadioModule} from '@angular/material/radio';
     MatListModule,
     MatCardModule,
     MatTableModule,
-    MatRadioModule
+    MatRadioModule,
+    MatDialogModule,
+    MatPaginatorModule,
+    MatSelectModule,
+    MatCheckboxModule
   ]
 })
 export class SharedModule { }
