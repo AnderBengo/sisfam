@@ -1,4 +1,4 @@
-<mat-card class="card">
+<mat-card class="card" >
     <div >
         <mat-toolbar color="primary">
             <span>Crear</span>
@@ -29,14 +29,16 @@
               <h4 style="text-align: center;">Condición encuesta</h4>
 
               <mat-radio-group aria-label="Select an option" formControlName="condicionEncuesta">
-                <mat-radio-button value="casa encuestada">Casa encuestada</mat-radio-button>
-                <mat-radio-button value="casa cerrada">Casa cerrada</mat-radio-button>
-                <mat-radio-button value="casa renuente">Casa renuente</mat-radio-button>
-                <mat-radio-button value="casa abandonada">Casa abandonada</mat-radio-button>
-                <mat-radio-button value="lote vacío">Lote vacío</mat-radio-button>
+                <mat-radio-button value="casa encuestada" (click)="condicionEncuesta(true)">Casa encuestada</mat-radio-button>
+                <mat-radio-button value="casa cerrada" (click)="condicionEncuesta(false)">Casa cerrada</mat-radio-button>
+                <mat-radio-button value="casa renuente" (click)="condicionEncuesta(false)">Casa renuente</mat-radio-button>
+                <mat-radio-button value="casa abandonada" (click)="condicionEncuesta(false)">Casa abandonada</mat-radio-button>
+                <mat-radio-button value="lote vacío" (click)="condicionEncuesta(false)">Lote vacío</mat-radio-button>
               </mat-radio-group>
 
-              <div class="input-2-column"  style="margin-top: 12px;">
+              <div style="margin-bottom: 20px;"></div>
+
+              <div class="input-2-column"  style="margin-top: 12px;" *ngIf="casaEncuestada">
                 <mat-form-field appearance="legacy">
                   <mat-label>Observación</mat-label>
                   <input matInput #input formControlName="observacion">
@@ -47,7 +49,7 @@
                     <mat-icon matSuffix >event</mat-icon>
                   </mat-form-field>
               </div>
-              <div class="input-2-column">
+              <div class="input-2-column" *ngIf="casaEncuestada">
                 <mat-form-field appearance="legacy">
                   <mat-label>Nro. visita presencial</mat-label>
                   <mat-select formControlName="numeroVisitaPresencial">

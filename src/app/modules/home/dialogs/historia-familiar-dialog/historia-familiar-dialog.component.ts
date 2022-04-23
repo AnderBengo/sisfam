@@ -15,6 +15,8 @@ import { EstructuraFamiliarDialogComponent } from '../estructura-familiar-dialog
 export class HistoriaFamiliarDialogComponent implements OnInit {
   formHistoriaFamiliar: FormGroup = new FormGroup({});
 
+  casaEncuestada: boolean = false;
+
   numerosDeVisitasPresencial: string[] = ['1ra presencial','2da presencial','3ra presencial','4ta presencial','5ta presencial','6ta presencial'];
 
   constructor(public dialogRef: MatDialogRef<HistoriaFamiliarComponent>,
@@ -42,16 +44,16 @@ export class HistoriaFamiliarDialogComponent implements OnInit {
           Validators.required
         ]),
         observacion: new FormControl(historiaFamiliar.observacion,[
-          Validators.required
+          
         ]),
         fechaApertura: new FormControl(historiaFamiliar.fechaApertura,[
-          Validators.required
+          
         ]),
         numeroVisitaPresencial: new FormControl(historiaFamiliar.numeroVisitaPresencial,[
-          Validators.required
+          
         ]),
         numeroVisitaRemota: new FormControl(historiaFamiliar.numeroVisitaRemota,[
-          Validators.required
+          
         ])
       });
     }else {
@@ -75,16 +77,16 @@ export class HistoriaFamiliarDialogComponent implements OnInit {
           Validators.required
         ]),
         observacion: new FormControl('',[
-          Validators.required
+          
         ]),
         fechaApertura: new FormControl('',[
-          Validators.required
+          
         ]),
         numeroVisitaPresencial: new FormControl('',[
-          Validators.required
+          
         ]),
         numeroVisitaRemota: new FormControl('',[
-          Validators.required
+          
         ])
       });
     }
@@ -115,5 +117,9 @@ export class HistoriaFamiliarDialogComponent implements OnInit {
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  condicionEncuesta(estado: boolean) {
+    this.casaEncuestada = estado;
   }
 }
